@@ -1,0 +1,126 @@
+{
+  "supported_cancers": [
+    "lung",
+    "breast",
+    "oral",
+    "colorectal",
+    "cervical",
+    "prostate"
+  ],
+
+  "risk_levels": {
+    "low": {
+      "min": 0,
+      "max": 29
+    },
+    "moderate": {
+      "min": 30,
+      "max": 59
+    },
+    "high": {
+      "min": 60,
+      "max": 999
+    }
+  },
+
+  "rules": [
+    {
+      "name": "Age 50+",
+      "path": ["personal_information", "age"],
+      "operator": ">=",
+      "value": 50,
+      "weights": {
+        "lung": 10,
+        "breast": 8,
+        "oral": 8,
+        "colorectal": 10,
+        "cervical": 5,
+        "prostate": 10
+      }
+    },
+
+    {
+      "name": "Regular Smoking",
+      "path": ["lifestyle", "smoking", "status"],
+      "operator": "==",
+      "value": "regular",
+      "weights": {
+        "lung": 40,
+        "oral": 30,
+        "colorectal": 10,
+        "breast": 5
+      }
+    },
+
+    {
+      "name": "Heavy Alcohol",
+      "path": ["lifestyle", "alcohol", "status"],
+      "operator": "==",
+      "value": "heavy",
+      "weights": {
+        "oral": 25,
+        "colorectal": 15,
+        "breast": 10
+      }
+    },
+
+    {
+      "name": "Tobacco Use",
+      "path": ["lifestyle", "tobacco"],
+      "operator": "==",
+      "value": true,
+      "weights": {
+        "oral": 40,
+        "lung": 20
+      }
+    },
+
+    {
+      "name": "Family History",
+      "path": ["family_history", "has_cancer_history"],
+      "operator": "==",
+      "value": true,
+      "weights": {
+        "lung": 15,
+        "breast": 15,
+        "oral": 10,
+        "colorectal": 15,
+        "cervical": 15,
+        "prostate": 15
+      }
+    }
+  ],
+
+  "symptoms": {
+    "persistent_cough": {
+      "lung": 25
+    },
+    "weight_loss": {
+      "lung": 10,
+      "oral": 10,
+      "colorectal": 25
+    },
+    "fatigue": {
+      "lung": 5,
+      "colorectal": 5
+    },
+    "blood_in_stool": {
+      "colorectal": 40
+    },
+    "lump": {
+      "breast": 40
+    },
+    "difficulty_swallowing": {
+      "oral": 30
+    },
+    "voice_change": {
+      "oral": 20
+    },
+    "non_healing_ulcer": {
+      "oral": 30
+    },
+    "abnormal_bleeding": {
+      "cervical": 40
+    }
+  }
+}
