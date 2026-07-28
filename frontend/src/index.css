@@ -1,0 +1,287 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 220 56% 11%;
+    --primary: 220 56% 11%;
+    --primary-foreground: 0 0% 100%;
+    --muted: 210 40% 98%;
+    --muted-foreground: 215 16% 47%;
+    --border: 214 32% 91%;
+    --ring: 217 91% 60%;
+  }
+
+  * {
+    @apply border-surface-border;
+  }
+
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-white text-navy font-sans;
+    font-feature-settings: "ss01", "cv11";
+    transition: background-color 240ms ease, color 240ms ease;
+  }
+
+  ::selection {
+    @apply bg-medical-200 text-navy;
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    @apply bg-surface-muted rounded-full;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-navy-200;
+  }
+}
+
+@layer components {
+  .glass {
+    @apply bg-white/70 backdrop-blur-xl border border-white/40;
+  }
+  .glass-dark {
+    @apply bg-navy-500/80 backdrop-blur-xl border border-white/10;
+  }
+  .gradient-text {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-medical-500 via-cyan-400 to-medical-500;
+    background-size: 200% auto;
+    animation: gradient-shift 6s ease infinite;
+  }
+  .grid-pattern {
+    background-image:
+      linear-gradient(rgba(8, 27, 51, 0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(8, 27, 51, 0.04) 1px, transparent 1px);
+    background-size: 32px 32px;
+  }
+  .noise {
+    position: relative;
+  }
+  .noise::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.025;
+    background-image: url("data:image/svg+xml;utf8,<svg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  }
+
+  .theme-toggle {
+    @apply inline-flex h-9 items-center gap-2 rounded-lg border border-surface-border bg-white/80 px-3 text-xs font-semibold text-navy shadow-soft backdrop-blur-xl transition-all hover:-translate-y-0.5 hover:shadow-soft-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-400;
+  }
+  .theme-toggle-compact {
+    @apply h-9 w-9 justify-center px-0;
+  }
+  .header-report-button {
+    @apply bg-success-500 text-white shadow-none hover:bg-success-600 rounded-2xl overflow-hidden;
+  }
+  .report-download-button {
+    @apply bg-success-500 text-white shadow-none hover:bg-success-600;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  .mask-fade-y {
+    -webkit-mask-image: linear-gradient(to bottom, transparent, black 12%, black 88%, transparent);
+    mask-image: linear-gradient(to bottom, transparent, black 12%, black 88%, transparent);
+  }
+  .mask-radial {
+    -webkit-mask-image: radial-gradient(ellipse at center, black 40%, transparent 80%);
+    mask-image: radial-gradient(ellipse at center, black 40%, transparent 80%);
+  }
+}
+
+/* A deep, slightly luminous night palette. Utility overrides keep existing screens
+   in sync without duplicating a dark variant on every component. */
+.dark body {
+  background: #090611;
+  color: #f4efff;
+}
+.dark body::before {
+  content: "";
+  position: fixed;
+  z-index: -1;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 58% 38% at 12% 0%, rgba(124, 58, 237, 0.22), transparent 72%),
+    radial-gradient(ellipse 45% 34% at 100% 32%, rgba(168, 85, 247, 0.16), transparent 76%),
+    radial-gradient(ellipse 38% 28% at 48% 100%, rgba(109, 40, 217, 0.11), transparent 80%);
+}
+.dark .grid-pattern {
+  background-image: linear-gradient(rgba(196, 181, 253, 0.075) 1px, transparent 1px), linear-gradient(90deg, rgba(196, 181, 253, 0.075) 1px, transparent 1px);
+}
+.dark [class~="bg-white"],
+.dark [class~="bg-white/60"],
+.dark [class~="bg-white/80"],
+.dark [class~="bg-white/90"],
+.dark [class~="bg-white/95"] { background-color: rgba(24, 17, 39, 0.92); }
+.dark [class~="bg-surface-subtle"], .dark [class~="bg-surface-subtle/50"], .dark [class~="bg-surface-subtle/60"] { background-color: #110c1e; }
+.dark [class~="bg-surface-muted"] { background-color: #211735; }
+.dark [class~="bg-navy-500"] { background-color: #160c2b; }
+.dark [class~="bg-navy-600"] { background-color: #10071f; }
+.dark [class~="border-surface-border"], .dark [class~="border-surface-border/80"] { border-color: rgba(196, 181, 253, 0.19); }
+.dark [class~="border-white/10"], .dark [class~="border-white/15"], .dark [class~="border-white/20"] { border-color: rgba(216, 180, 254, 0.18); }
+.dark .text-navy, .dark .text-navy-500 { color: #f5f0ff; }
+.dark .text-navy-100 { color: #ddd1f7; }
+.dark .text-navy-200 { color: #bcaed5; }
+.dark .text-navy-300 { color: #d0c5e1; }
+.dark .text-navy-400 { color: #a99abb; }
+.dark .text-medical-500, .dark .text-medical-600 { color: #c084fc; }
+.dark .text-cyan-500, .dark .text-cyan-600, .dark .text-cyan-700 { color: #d8b4fe; }
+.dark [class~="bg-medical-50"], .dark [class~="bg-medical-50/40"], .dark [class~="bg-medical-50/50"], .dark [class~="bg-cyan-50"] { background-color: rgba(124, 58, 237, 0.15); }
+.dark [class~="border-medical-100"], .dark [class~="border-cyan-100"] { border-color: rgba(192, 132, 252, 0.25); }
+.dark .bg-gradient-soft { background-image: radial-gradient(ellipse at top, rgba(124, 58, 237, 0.19), transparent 58%); }
+.dark .glass { background-color: rgba(24, 17, 39, 0.73); border-color: rgba(216, 180, 254, 0.16); }
+.dark .theme-toggle {
+  background-color: rgba(32, 21, 52, 0.88);
+  border-color: rgba(216, 180, 254, 0.32);
+  color: #f5f0ff;
+  box-shadow: 0 0 0 1px rgba(168, 85, 247, 0.14), 0 8px 28px -8px rgba(139, 92, 246, 0.72);
+}
+.dark .shadow-soft, .dark .shadow-soft-lg, .dark .shadow-soft-xl { box-shadow: 0 12px 32px -14px rgba(0, 0, 0, 0.72), 0 0 22px -12px rgba(168, 85, 247, 0.62); }
+.dark .bg-gradient-brand { background-image: linear-gradient(135deg, #160c2b 0%, #4c1d95 55%, #a855f7 100%); }
+.dark .gradient-text { background-image: linear-gradient(90deg, #c084fc, #f0abfc, #a855f7); }
+
+/* High-contrast health indicators in the landing dashboard and feature cards. */
+.dark .hero-surface {
+  background-color: #160d28 !important;
+  border-color: rgba(196, 181, 253, 0.34) !important;
+}
+.dark .hero-chart-surface {
+  background-image: linear-gradient(135deg, #201239 0%, #120a20 100%) !important;
+  border-color: rgba(196, 181, 253, 0.28) !important;
+}
+.dark .health-value {
+  color: #86efac !important;
+  text-shadow: 0 0 16px rgba(74, 222, 128, 0.48);
+}
+.dark .health-icon,
+.dark .feature-icon {
+  background-color: rgba(74, 222, 128, 0.13) !important;
+  box-shadow: 0 0 20px -7px rgba(74, 222, 128, 0.85);
+}
+.dark .health-icon svg,
+.dark .feature-icon svg {
+  color: #4ade80 !important;
+  stroke: #4ade80 !important;
+}
+.dark .risk-gauge .gauge-track { stroke: rgba(196, 181, 253, 0.23); }
+.dark .risk-gauge .gauge-tick { stroke: rgba(196, 181, 253, 0.72); }
+.dark .risk-gauge .gauge-label,
+.dark .risk-gauge .gauge-suffix { color: #86efac !important; }
+.dark .recommendation-icon {
+  background-image: none !important;
+  background-color: rgba(74, 222, 128, 0.13) !important;
+  border-color: rgba(74, 222, 128, 0.32) !important;
+  box-shadow: 0 0 18px -8px rgba(74, 222, 128, 0.9);
+}
+.dark .recommendation-icon svg {
+  color: #4ade80 !important;
+  stroke: #4ade80 !important;
+}
+.dark .recommendation-summary-icon {
+  background-color: rgba(74, 222, 128, 0.13) !important;
+  color: #4ade80 !important;
+  box-shadow: 0 0 20px -9px rgba(74, 222, 128, 0.85);
+}
+.dark .ai-disclaimer {
+  background: linear-gradient(135deg, rgba(80, 18, 38, 0.92), rgba(47, 10, 29, 0.96)) !important;
+  border-color: rgba(251, 113, 133, 0.42) !important;
+  box-shadow: 0 0 0 1px rgba(159, 18, 57, 0.2), 0 14px 36px -16px rgba(225, 29, 72, 0.72), inset 0 1px 0 rgba(253, 164, 175, 0.1);
+}
+.dark .ai-disclaimer > div:first-child {
+  background-color: rgba(251, 113, 133, 0.15) !important;
+  color: #fda4af !important;
+}
+.dark .ai-disclaimer .text-amber-900 { color: #ffe4e6 !important; }
+.dark .ai-disclaimer .text-amber-800\/80 { color: #fecdd3 !important; }
+.dark .final-report-card {
+  background: linear-gradient(135deg, rgba(39, 24, 66, 0.94), rgba(24, 14, 43, 0.96)) !important;
+  border-color: rgba(74, 222, 128, 0.35) !important;
+  box-shadow: 0 0 0 1px rgba(74, 222, 128, 0.1), 0 12px 28px -14px rgba(74, 222, 128, 0.74);
+}
+.dark .final-report-card:hover { box-shadow: 0 0 0 1px rgba(134, 239, 172, 0.3), 0 16px 36px -13px rgba(74, 222, 128, 0.88); }
+.dark .final-report-icon {
+  background-color: rgba(74, 222, 128, 0.14) !important;
+  color: #4ade80 !important;
+  box-shadow: 0 0 18px -8px rgba(74, 222, 128, 0.85);
+}
+.dark .final-report-card .text-accent-500 { color: #d8b4fe !important; }
+.dark .header-report-button {
+  @apply rounded-2xl overflow-hidden;
+  background: linear-gradient(135deg, #22c55e, #16a34a) !important;
+  box-shadow: 0 0 0 1px rgba(134, 239, 172, 0.18), 0 8px 24px -8px rgba(74, 222, 128, 0.8) !important;
+}
+
+/* Preserve dark surfaces on interaction and make hover feedback visible. */
+.dark [class*="hover:bg-white"]:hover,
+.dark [class*="hover:bg-surface-subtle"]:hover,
+.dark [class*="hover:bg-surface-muted"]:hover {
+  background-color: #25183d !important;
+}
+.dark [class*="hover:border-navy"]:hover {
+  border-color: rgba(192, 132, 252, 0.62) !important;
+}
+.dark [class*="hover:shadow-soft"]:hover {
+  box-shadow: 0 16px 36px -16px rgba(0, 0, 0, 0.78), 0 0 28px -14px rgba(168, 85, 247, 0.9) !important;
+}
+.dark .card-surface:hover {
+  transform: translateY(-3px);
+  border-color: rgba(192, 132, 252, 0.45);
+  box-shadow: 0 18px 38px -18px rgba(0, 0, 0, 0.8), 0 0 28px -15px rgba(168, 85, 247, 0.86);
+}
+.dark .header-report-button:hover {
+  background: linear-gradient(135deg, #4ade80, #16a34a) !important;
+  box-shadow: 0 0 0 1px rgba(187, 247, 208, 0.28), 0 11px 30px -8px rgba(74, 222, 128, 0.9) !important;
+}
+.dark .report-cover-title {
+  color: #86efac;
+  text-shadow: 0 0 24px rgba(74, 222, 128, 0.28);
+}
+.dark .summary-stat-success {
+  background: linear-gradient(135deg, rgba(20, 83, 45, 0.9), rgba(12, 52, 33, 0.94)) !important;
+  border-color: rgba(74, 222, 128, 0.54) !important;
+  box-shadow: 0 0 0 1px rgba(74, 222, 128, 0.1), 0 14px 32px -16px rgba(74, 222, 128, 0.76), inset 0 1px 0 rgba(187, 247, 208, 0.12);
+}
+.dark .summary-stat-success .text-navy,
+.dark .summary-stat-success .text-navy-300 { color: #dcfce7 !important; }
+.dark .summary-stat-success .text-navy-200 { color: #bbf7d0 !important; }
+.dark .summary-stat-success p:nth-of-type(2) {
+  color: #86efac !important;
+  text-shadow: 0 0 16px rgba(74, 222, 128, 0.5);
+}
+.dark .summary-stat-success:hover {
+  border-color: rgba(134, 239, 172, 0.76) !important;
+  box-shadow: 0 0 0 1px rgba(134, 239, 172, 0.2), 0 18px 38px -15px rgba(74, 222, 128, 0.9);
+}
+.dark .report-download-button {
+  background: linear-gradient(135deg, #22c55e, #16a34a) !important;
+  box-shadow: 0 0 0 1px rgba(134, 239, 172, 0.18), 0 8px 24px -8px rgba(74, 222, 128, 0.8) !important;
+}
+.dark .report-download-button:hover {
+  background: linear-gradient(135deg, #4ade80, #16a34a) !important;
+  box-shadow: 0 0 0 1px rgba(187, 247, 208, 0.28), 0 11px 30px -8px rgba(74, 222, 128, 0.9) !important;
+}
+.dark .menu-nav-link,
+.dark .menu-nav-link:hover { color: #f5f0ff !important; }
