@@ -17,6 +17,8 @@ import { Input, Label, Select, Textarea } from "@/components/ui/Input";
 import { StepProgress } from "@/components/ui/Progress";
 import { FileUpload } from "@/components/assessment/FileUpload";
 import { cn } from "@/lib/utils";
+import { AssessmentProvider } from "@/context/AssessmentContext";
+
 
 const steps = [
   { id: "personal", title: "Personal", icon: User },
@@ -59,6 +61,7 @@ export function AssessmentPage() {
   };
 
   return (
+    <AssessmentProvider>
     <div className="min-h-screen bg-gradient-soft">
       {/* Top bar */}
       <div className="border-b border-surface-border bg-white/80 backdrop-blur-xl sticky top-0 z-30">
@@ -215,6 +218,7 @@ export function AssessmentPage() {
         </div>
       </div>
     </div>
+    </AssessmentProvider>
   );
 }
 
