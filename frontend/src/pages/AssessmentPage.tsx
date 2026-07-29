@@ -21,6 +21,14 @@ import LifestyleStep from "@/components/assessment/steps/LifestyleStep";
 import MedicalStep from "@/components/assessment/steps/MedicalStep";
 import ReportsStep from "@/components/assessment/steps/ReportsStep";
 
+import { useAssessment } from "@/context/AssessmentContext";
+import { predictPatient } from "@/api/patientApi";
+import type {
+  PredictRequest,
+  PredictResponse,
+} from "@/types/patient";
+
+
 
 
 const steps = [
@@ -54,14 +62,47 @@ const sectionMeta = [
 ];
 
 export function AssessmentPage() {
+  return (
+    <AssessmentProvider>
+      <AssessmentContent />
+    </AssessmentProvider>
+  );
+}
+
+function AssessmentContent() {
   const navigate = useNavigate();
+  const { patient } = useAssessment();
+
   const [step, setStep] = useState(0);
   const [direction, setDirection] = useState<1 | -1>(1);
+  const [loading, setLoading] = useState(false);
 
   const go = (next: number) => {
     setDirection(next > step ? 1 : -1);
     setStep(next);
   };
+
+  const handleSubmit = async () => {
+  try {
+    setLoading(true);
+
+    const response = await predictPatient<
+      PredictRequest,
+      PredictResponse
+    >({
+      patient,
+    });
+
+    navigate("/analysis", {
+      state: response.data,
+    });
+  } catch (error) {
+    console.error(error);
+    alert("Unable to generate assessment. Please try again.");
+  } finally {
+    setLoading(false);
+  }
+};
 
   return (
     <AssessmentProvider>
@@ -203,17 +244,23 @@ export function AssessmentPage() {
                   </Button>
                 ) : (
                   <Button
-                    variant="glow"
-                    size="md"
-                    onClick={() => navigate("/analysis")}
-                    className="group"
+                  variant="glow"
+                  size="md"
+                  onClick={handleSubmit}
+                  disabled={loading}
+                  className="group"
                   >
-                    Run CuraCore™ Analysis
-                    <ArrowRight
+                    {loading 
+                    ? "Running CuraCore™ Analysis..."
+                    : "Run CuraCore™ Analysis"}
+                    
+                    {!loading && (
+                      <ArrowRight
                       size={16}
                       className="transition-transform group-hover:translate-x-0.5"
-                    />
-                  </Button>
+                      />
+                      )}
+                      </Button>
                 )}
               </div>
             </div>
