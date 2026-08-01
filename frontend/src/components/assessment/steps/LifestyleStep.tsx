@@ -1,116 +1,21 @@
-import { Select, Textarea, Label } from "@/components/ui/Input";
+import { Input, Select } from "@/components/ui/Input";
 import Field from "@/components/assessment/Field";
 import { useAssessment } from "@/context/AssessmentContext";
-import { cn } from "@/lib/utils";
-
-const sleepOptions = ["< 5h", "5-6h", "7-8h", "8h+"];
 
 export default function LifestyleStep() {
-  const { patient, updateField } = useAssessment();
-
-  return (
-    <div className="space-y-6">
-      <div className="grid sm:grid-cols-2 gap-5">
-        <Field label="Smoking status">
-          <Select
-            value={patient.smoking_status}
-            onChange={(e) =>
-              updateField("smoking_status", e.target.value)
-            }
-          >
-            <option value="">Select</option>
-            <option value="never">Never smoked</option>
-            <option value="former">Former smoker</option>
-            <option value="occasional">Occasional</option>
-            <option value="regular">Regular smoker</option>
-          </Select>
-        </Field>
-
-        <Field label="Alcohol consumption">
-          <Select
-            value={patient.alcohol_consumption}
-            onChange={(e) =>
-              updateField("alcohol_consumption", e.target.value)
-            }
-          >
-            <option value="">Select</option>
-            <option value="none">None</option>
-            <option value="moderate">
-              Moderate (1-7 drinks / week)
-            </option>
-            <option value="heavy">
-              Heavy (8+ drinks / week)
-            </option>
-          </Select>
-        </Field>
-
-        <Field label="Exercise frequency">
-          <Select
-            value={patient.exercise_frequency}
-            onChange={(e) =>
-              updateField("exercise_frequency", e.target.value)
-            }
-          >
-            <option value="">Select</option>
-            <option value="sedentary">Sedentary</option>
-            <option value="light">1-2 days / week</option>
-            <option value="regular">3-5 days / week</option>
-            <option value="active">Daily</option>
-          </Select>
-        </Field>
-
-        <Field label="Diet pattern">
-          <Select
-            value={patient.diet_pattern}
-            onChange={(e) =>
-              updateField("diet_pattern", e.target.value)
-            }
-          >
-            <option value="">Select</option>
-            <option value="balanced">Balanced</option>
-            <option value="vegetarian">Vegetarian</option>
-            <option value="vegan">Vegan</option>
-            <option value="high-processed">
-              High processed food
-            </option>
-          </Select>
-        </Field>
-      </div>
-
-      <div>
-        <Label>Sleep average per night</Label>
-
-        <div className="mt-2 grid grid-cols-4 gap-2">
-          {sleepOptions.map((option) => (
-            <button
-              key={option}
-              type="button"
-              onClick={() =>
-                updateField("sleep_average", option)
-              }
-              className={cn(
-                "h-10 rounded-xl border text-sm font-medium transition-all",
-                patient.sleep_average === option
-                  ? "border-medical-500 bg-medical-50 text-medical-600"
-                  : "border-surface-border text-navy-300 hover:border-navy-200"
-              )}
-            >
-              {option}
-            </button>
-          ))}
-        </div>
-      </div>
-
-      <Field label="Anything else we should know about your lifestyle?">
-        <Textarea
-          value={patient.lifestyle_notes}
-          onChange={(e) =>
-            updateField("lifestyle_notes", e.target.value)
-          }
-          placeholder="E.g. recent weight changes, stress levels, occupation hazards…"
-        />
-      </Field>
-    </div>
-  );
+  const { patient, updatePatient } = useAssessment();
+  const lifestyle = patient.lifestyle;
+  const update = (value: Partial<typeof lifestyle>) => updatePatient((current) => ({ ...current, lifestyle: { ...current.lifestyle, ...value } }));
+  const selectBoolean = (value: string) => value === "yes";
+  return <div className="space-y-6"><div className="grid sm:grid-cols-2 gap-5">
+    <Field label="Smoking"><Select value={lifestyle.smoking.status} onChange={(e) => update({ smoking: { ...lifestyle.smoking, status: e.target.value } })}><option value="">Select</option><option value="never">Never</option><option value="former">Former</option><option value="occasional">Occasional</option><option value="regular">Regular</option></Select></Field>
+    {lifestyle.smoking.status && lifestyle.smoking.status !== "never" && <><Field label="Cigarettes per day"><Input type="number" min="0" value={lifestyle.smoking.cigarettes_per_day || ""} onChange={(e) => update({ smoking: { ...lifestyle.smoking, cigarettes_per_day: Number(e.target.value) } })} /></Field><Field label="Years of smoking"><Input type="number" min="0" value={lifestyle.smoking.years || ""} onChange={(e) => update({ smoking: { ...lifestyle.smoking, years: Number(e.target.value) } })} /></Field></>}
+    <Field label="Alcohol"><Select value={lifestyle.alcohol.status} onChange={(e) => update({ alcohol: { ...lifestyle.alcohol, status: e.target.value } })}><option value="">Select</option><option value="never">Never</option><option value="occasional">Occasional</option><option value="regular">Regular</option><option value="heavy">Heavy</option></Select></Field>
+    {lifestyle.alcohol.status && lifestyle.alcohol.status !== "never" && <Field label="Alcohol frequency"><Input value={lifestyle.alcohol.frequency} onChange={(e) => update({ alcohol: { ...lifestyle.alcohol, frequency: e.target.value } })} placeholder="e.g. 3 times per week" /></Field>}
+    <Field label="Tobacco"><Select value={lifestyle.tobacco ? "yes" : lifestyle.tobacco === false ? "no" : ""} onChange={(e) => update({ tobacco: selectBoolean(e.target.value) })}><option value="">Select</option><option value="yes">Yes</option><option value="no">No</option></Select></Field>
+    <Field label="Physical activity"><Select value={lifestyle.physical_activity} onChange={(e) => update({ physical_activity: e.target.value })}><option value="">Select</option><option value="sedentary">Sedentary</option><option value="light">Light</option><option value="moderate">Moderate</option><option value="active">Active</option></Select></Field>
+    <Field label="Diet"><Select value={lifestyle.diet} onChange={(e) => update({ diet: e.target.value })}><option value="">Select</option><option value="healthy">Healthy</option><option value="mixed">Mixed</option><option value="high_processed_food">High Processed Food</option><option value="vegetarian">Vegetarian</option></Select></Field>
+    <Field label="Average sleep (hours)"><Input type="number" min="0" max="24" step="0.5" value={lifestyle.sleep_hours || ""} onChange={(e) => update({ sleep_hours: Number(e.target.value) })} /></Field>
+    <Field label="Stress level"><Select value={lifestyle.stress_level} onChange={(e) => update({ stress_level: e.target.value })}><option value="">Select</option><option value="low">Low</option><option value="moderate">Moderate</option><option value="high">High</option></Select></Field>
+  </div></div>;
 }
-

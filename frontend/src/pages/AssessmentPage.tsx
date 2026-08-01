@@ -10,6 +10,9 @@ import {
   Activity,
   HeartPulse,
   FileUp,
+  ClipboardList,
+  Stethoscope,
+  CloudSun,
   ShieldCheck,
 } from "lucide-react";
 import { Button } from "@/components/ui/Button";
@@ -20,6 +23,9 @@ import PersonalStep from "@/components/assessment/steps/PersonalStep";
 import LifestyleStep from "@/components/assessment/steps/LifestyleStep";
 import MedicalStep from "@/components/assessment/steps/MedicalStep";
 import ReportsStep from "@/components/assessment/steps/ReportsStep";
+import FamilyHistoryStep from "@/components/assessment/steps/FamilyHistoryStep";
+import SymptomsStep from "@/components/assessment/steps/SymptomsStep";
+import EnvironmentalStep from "@/components/assessment/steps/EnvironmentalStep";
 
 import { useAssessment } from "@/context/AssessmentContext";
 import { predictPatient } from "@/api/patientApi";
@@ -34,7 +40,10 @@ import type {
 const steps = [
   { id: "personal", title: "Personal", icon: User },
   { id: "lifestyle", title: "Lifestyle", icon: Activity },
+  { id: "family", title: "Family", icon: ClipboardList },
   { id: "medical", title: "Medical", icon: HeartPulse },
+  { id: "symptoms", title: "Symptoms", icon: Stethoscope },
+  { id: "environment", title: "Environment", icon: CloudSun },
   { id: "reports", title: "Reports", icon: FileUp },
 ];
 
@@ -50,9 +59,24 @@ const sectionMeta = [
     icon: Activity,
   },
   {
+    title: "Family history",
+    description: "Cancer history in your family.",
+    icon: ClipboardList,
+  },
+  {
     title: "Medical history",
     description: "Past and current health context.",
     icon: HeartPulse,
+  },
+  {
+    title: "Symptoms",
+    description: "Tell us what you are experiencing.",
+    icon: Stethoscope,
+  },
+  {
+    title: "Environmental factors",
+    description: "Relevant exposure information.",
+    icon: CloudSun,
   },
   {
     title: "Medical reports",
@@ -283,8 +307,14 @@ function renderStep(step: number) {
     case 1:
       return <LifestyleStep />;
     case 2:
-      return <MedicalStep />;
+      return <FamilyHistoryStep />;
     case 3:
+      return <MedicalStep />;
+    case 4:
+      return <SymptomsStep />;
+    case 5:
+      return <EnvironmentalStep />;
+    case 6:
       return <ReportsStep />;
     default:
       return null;

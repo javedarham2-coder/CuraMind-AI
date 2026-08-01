@@ -7,10 +7,7 @@ type Uploaded = { name: string; size: string; type: string };
 
 export function FileUpload() {
   const [isDragging, setIsDragging] = useState(false);
-  const [files, setFiles] = useState<Uploaded[]>([
-    { name: "blood-panel-2024.pdf", size: "1.2 MB", type: "pdf" },
-    { name: "mri-scan.jpg", size: "3.8 MB", type: "image" },
-  ]);
+  const [files, setFiles] = useState<Uploaded[]>([]);
   const inputRef = useRef<HTMLInputElement>(null);
 
   const onFiles = (list: FileList | null) => {
@@ -72,8 +69,8 @@ export function FileUpload() {
           {isDragging ? "Drop files to upload" : "Drag & drop medical reports"}
         </p>
         <p className="mt-1 text-xs text-navy-200">
-          or <span className="text-medical-500 font-medium">browse files</span> · PDF, JPG, PNG,
-          DICOM up to 25 MB
+          or <span className="text-medical-500 font-medium">browse files</span> · PDF, images,
+          blood reports, MRI, CT and X-Ray up to 25 MB
         </p>
         <p className="mt-3 text-[11px] text-navy-200/70">
           All files are encrypted in transit and at rest. Your data is never used to train models.

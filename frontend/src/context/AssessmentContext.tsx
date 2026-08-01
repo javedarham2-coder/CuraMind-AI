@@ -1,98 +1,29 @@
-import {
-  createContext,
-  useContext,
-  useState,
-  type ReactNode,
-} from "react";
-
+import { createContext, useContext, useState, type ReactNode } from "react";
 import type { Patient } from "@/types/patient";
 
 interface AssessmentContextType {
   patient: Patient;
-  updateField: <K extends keyof Patient>(
-    field: K,
-    value: Patient[K]
-  ) => void;
-  toggleSymptom: (symptom: string) => void;
-  setPatient: React.Dispatch<React.SetStateAction<Patient>>;
+  updatePatient: (updater: (patient: Patient) => Patient) => void;
 }
 
-const AssessmentContext = createContext<AssessmentContextType | undefined>(
-  undefined
-);
+const AssessmentContext = createContext<AssessmentContextType | undefined>(undefined);
 
 const initialPatient: Patient = {
-  full_name: "",
-  age: 0,
-  gender: "",
-  date_of_birth: "",
-
-  height: 0,
-  weight: 0,
-  email: "",
-
-  smoking_status: "",
-  alcohol_consumption: "",
-  exercise_frequency: "",
-  diet_pattern: "",
-  sleep_average: "",
-  lifestyle_notes: "",
-
-  family_history: "",
-  symptoms: [],
-  existing_conditions: "",
-  current_medications: "",
-  clinician_notes: "",
+  personal_information: { full_name: "", age: 0, gender: "", date_of_birth: "", height_cm: 0, weight_kg: 0, email: "", occupation: "" },
+  lifestyle: { smoking: { status: "", cigarettes_per_day: 0, years: 0 }, alcohol: { status: "", frequency: "" }, tobacco: null, physical_activity: "", diet: "", sleep_hours: 0, stress_level: "" },
+  family_history: { has_cancer_history: null, cancer_type: "", relationship: "", age_at_diagnosis: 0, multiple_members: null },
+  medical_history: { diabetes: false, hypertension: false, heart_disease: false, copd: false, previous_cancer: false, no_existing_conditions: false, other_condition: "", has_medications: null, medications: "", has_surgeries: null, surgeries: "", has_allergies: null, allergies: "", clinician_notes: "" },
+  symptoms: { persistent_cough: false, weight_loss: false, fatigue: false, lump: false, blood_in_stool: false, difficulty_swallowing: false, voice_change: false, non_healing_ulcer: false, abnormal_bleeding: false, skin_changes: false, loss_of_appetite: false, other: "" },
+  additional_information: { chemical_exposure: null, radiation_exposure: null, air_pollution_exposure: null },
 };
 
-export function AssessmentProvider({
-  children,
-}: {
-  children: ReactNode;
-}) {
+export function AssessmentProvider({ children }: { children: ReactNode }) {
   const [patient, setPatient] = useState(initialPatient);
-
-  function updateField<K extends keyof Patient>(
-    field: K,
-    value: Patient[K]
-  ) {
-    setPatient((prev) => ({
-      ...prev,
-      [field]: value,
-    }));
-  }
-
-  function toggleSymptom(symptom: string) {
-    setPatient((prev) => ({
-      ...prev,
-      symptoms: prev.symptoms.includes(symptom)
-        ? prev.symptoms.filter((s) => s !== symptom)
-        : [...prev.symptoms, symptom],
-    }));
-  }
-
-  return (
-    <AssessmentContext.Provider
-      value={{
-        patient,
-        updateField,
-        toggleSymptom,
-        setPatient,
-      }}
-    >
-      {children}
-    </AssessmentContext.Provider>
-  );
+  return <AssessmentContext.Provider value={{ patient, updatePatient: (updater) => setPatient(updater) }}>{children}</AssessmentContext.Provider>;
 }
 
 export function useAssessment() {
   const context = useContext(AssessmentContext);
-
-  if (!context) {
-    throw new Error(
-      "useAssessment must be used inside AssessmentProvider"
-    );
-  }
-
+  if (!context) throw new Error("useAssessment must be used inside AssessmentProvider");
   return context;
 }
