@@ -1,3 +1,4 @@
+# Global exception handlers for validation errors, missing files, and unexpected server exceptions.
 from fastapi import FastAPI, Request
 from fastapi.exceptions import RequestValidationError
 

@@ -1,3 +1,5 @@
+# Simple test harness to exercise the risk, explanation, and recommendation pipeline locally.
+
 from services.risk_engine import RiskEngine
 from services.explanation_engine import ExplanationEngine
 from services.recommendation_engine import RecommendationEngine

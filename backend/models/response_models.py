@@ -1,3 +1,4 @@
+# Pydantic response models used by the API to wrap prediction results and standard responses.
 from typing import Any, Dict
 
 from pydantic import BaseModel

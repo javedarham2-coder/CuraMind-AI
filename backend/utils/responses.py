@@ -1,3 +1,4 @@
+# Utility helpers to create consistent JSON success and error responses for the API.
 from fastapi.responses import JSONResponse
 
 from models.response_models import APIResponse

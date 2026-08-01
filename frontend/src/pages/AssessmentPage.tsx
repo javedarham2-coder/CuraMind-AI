@@ -96,16 +96,21 @@ function AssessmentContent() {
     navigate("/analysis", {
       state: response.data,
     });
-  } catch (error) {
-    console.error(error);
-    alert("Unable to generate assessment. Please try again.");
-  } finally {
+  } 
+  catch (error) {
+  console.error("Prediction Error:", error);
+
+  if (error instanceof Error) {
+    alert(error.message);
+  } else {
+    alert("Unknown Error");
+  }} 
+  finally {
     setLoading(false);
   }
 };
 
   return (
-    <AssessmentProvider>
     <div className="min-h-screen bg-gradient-soft">
       {/* Top bar */}
       <div className="border-b border-surface-border bg-white/80 backdrop-blur-xl sticky top-0 z-30">
@@ -268,7 +273,6 @@ function AssessmentContent() {
         </div>
       </div>
     </div>
-    </AssessmentProvider>
   );
 }
 

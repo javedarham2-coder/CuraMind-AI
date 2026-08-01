@@ -1,3 +1,4 @@
+# Risk engine service that calculates cancer risk scores using configured rules and weights.
 import json
 from pathlib import Path
 

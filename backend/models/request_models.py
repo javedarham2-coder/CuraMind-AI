@@ -1,3 +1,4 @@
+# Pydantic request model defining the expected /predict payload structure.
 from typing import Any, Dict
 
 from pydantic import BaseModel, Field

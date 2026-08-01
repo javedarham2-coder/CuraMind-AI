@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import {
   ArrowLeft,
@@ -29,6 +29,13 @@ import { AnimatedNumber } from "@/components/ui/AnimatedNumber";
 
 export function DashboardPage() {
   const navigate = useNavigate();
+  const location = useLocation();
+  const report = location.state?.report;
+  if (!report) {
+  navigate("/");
+  return null;
+}
+console.log(report);
   const risk = 18;
   const trend = -18;
 

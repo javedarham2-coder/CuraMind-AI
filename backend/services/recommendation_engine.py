@@ -1,3 +1,4 @@
+# Recommendation engine service that enriches the risk report with care actions and next steps.
 import json
 from pathlib import Path
 
