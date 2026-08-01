@@ -1,15 +1,10 @@
 import { motion } from "framer-motion";
 import { AnimatedNumber } from "@/components/ui/AnimatedNumber";
+import type { RiskBreakdown } from "@/types/patient";
 
-const data = [
-  { label: "Lifestyle", value: 12, color: "#2563EB" },
-  { label: "Family History", value: 28, color: "#22D3EE" },
-  { label: "Symptoms", value: 8, color: "#8B5CF6" },
-  { label: "Lab Markers", value: 15, color: "#22C55E" },
-  { label: "Demographics", value: 18, color: "#F59E0B" },
-];
+const colors = ["#2563EB", "#22D3EE", "#8B5CF6", "#22C55E", "#F59E0B", "#F97316"];
 
-export function FactorBarChart() {
+export function FactorBarChart({ data }: { data: RiskBreakdown[] }) {
   return (
     <div className="space-y-4">
       {data.map((d, i) => (
@@ -17,17 +12,17 @@ export function FactorBarChart() {
           <div className="flex items-center justify-between text-sm">
             <span className="font-medium text-navy">{d.label}</span>
             <span className="text-navy-200 font-medium">
-              <AnimatedNumber value={d.value} suffix="%" />
+              <AnimatedNumber value={d.score} />
             </span>
           </div>
           <div className="mt-1.5 h-2 rounded-full bg-surface-muted overflow-hidden">
             <motion.div
               className="h-full rounded-full"
               style={{
-                background: `linear-gradient(90deg, ${d.color}aa, ${d.color})`,
+                background: `linear-gradient(90deg, ${colors[i % colors.length]}aa, ${colors[i % colors.length]})`,
               }}
               initial={{ width: 0 }}
-              animate={{ width: `${d.value}%` }}
+              animate={{ width: `${Math.min(100, d.score)}%` }}
               transition={{ duration: 0.8, delay: i * 0.06, ease: [0.22, 1, 0.36, 1] }}
             />
           </div>

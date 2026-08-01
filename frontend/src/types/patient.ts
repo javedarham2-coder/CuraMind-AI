@@ -71,4 +71,32 @@ export interface Symptoms {
 }
 
 export interface PredictRequest { patient: Patient; }
-export interface PredictResponse { report: Record<string, unknown>; }
+
+export type RiskLevel = "Low" | "Moderate" | "High";
+
+export interface Recommendation {
+  urgency: string;
+  action: string;
+  next_steps: string[];
+  specialist: string;
+  lifestyle: string[];
+  tests_to_discuss?: string[];
+}
+
+export interface CancerRiskResult {
+  score: number;
+  risk: RiskLevel;
+  reasons: string[];
+  recommendation: Recommendation;
+}
+
+export type Report = Record<string, CancerRiskResult>;
+
+export interface PredictResponse { report: Report; }
+
+export interface RiskBreakdown {
+  key: string;
+  label: string;
+  score: number;
+  risk: RiskLevel;
+}

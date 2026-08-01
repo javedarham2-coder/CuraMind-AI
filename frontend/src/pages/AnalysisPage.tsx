@@ -5,6 +5,12 @@ import { Check, Brain, Sparkles, ShieldCheck } from "lucide-react";
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 import { cn } from "@/lib/utils";
+import { useAssessment } from "@/context/AssessmentContext";
+import { predictPatient } from "@/api/patientApi";
+import type {
+  PredictRequest,
+  PredictResponse,
+} from "@/types/patient";
 
 const analysisSteps = [
   "Reading patient history",
@@ -18,39 +24,75 @@ const analysisSteps = [
 // Analysis page: manages progress steps and renders the CuraCore™ 3D brain
 export function AnalysisPage() {
   const navigate = useNavigate();
+  const { patient, setReport } = useAssessment();
   const [step, setStep] = useState(0);
   const [progress, setProgress] = useState(0);
   const [isComplete, setIsComplete] = useState(false);
 
   useEffect(() => {
-    const total = analysisSteps.length;
-    const stepDur = 1400;
-    const tick = 40;
-    const totalTicks = (stepDur * total) / tick;
+    let cancelled = false;
+    const runAnalysis = async () => {
+    try {
+      const total = analysisSteps.length;
+      let currentProgress = 0;
 
-    let i = 0;
-    let completionTimer: ReturnType<typeof setTimeout> | undefined;
-    const interval = setInterval(() => {
-      i += 1;
-      const newProgress = Math.min(100, (i / totalTicks) * 100);
-      setProgress(newProgress);
+      // Smooth fake progress while backend is processing
+      const interval = setInterval(() => {
+        if (cancelled) return;
 
-      const stepIndex = Math.min(total - 1, Math.floor((i / totalTicks) * total));
-      setStep(stepIndex);
+        currentProgress = Math.min(currentProgress + 1, 95);
 
-      if (newProgress >= 100) {
-        clearInterval(interval);
-        setStep(total);
-        setIsComplete(true);
-        completionTimer = setTimeout(() => navigate("/dashboard"), 1000);
-      }
-    }, tick);
+        setProgress(currentProgress);
 
-    return () => {
+        const stepIndex = Math.min(
+          total - 1,
+          Math.floor((currentProgress / 100) * total)
+        );
+
+        setStep(stepIndex);
+      }, 80);
+
+      // 🔥 Real backend call
+      const response = await predictPatient<
+        PredictRequest,
+        PredictResponse
+      >({
+        patient,
+      });
+
       clearInterval(interval);
-      if (completionTimer) clearTimeout(completionTimer);
-    };
-  }, [navigate]);
+
+      if (cancelled) return;
+
+      // Save report into Context
+      setReport(response.data);
+
+      // Finish animation nicely
+      setProgress(100);
+      setStep(total);
+      setIsComplete(true);
+
+      setTimeout(() => {
+        navigate("/dashboard");
+      }, 1000);
+
+    } catch (error) {
+      console.error(error);
+
+      alert(
+        "Unable to analyze the assessment. Please try again."
+      );
+
+      navigate("/assessment");
+    }
+  };
+
+  runAnalysis();
+
+  return () => {
+    cancelled = true;
+  };
+}, [navigate, patient, setReport]);
 
   return (
     <div className="relative min-h-screen overflow-hidden bg-navy-500 text-white">

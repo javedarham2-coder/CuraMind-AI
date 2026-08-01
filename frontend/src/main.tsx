@@ -12,10 +12,12 @@ import { AnalysisPage } from "./pages/AnalysisPage";
 import { DashboardPage } from "./pages/DashboardPage";
 import { ReportPage } from "./pages/ReportPage";
 import { SignInPage } from "./pages/SignInPage";
+import { AssessmentProvider } from "./context/AssessmentContext";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <ThemeProvider>
+      <AssessmentProvider>
       <BrowserRouter>
         <Routes>
           <Route element={<AppLayout />}>
@@ -30,6 +32,7 @@ createRoot(document.getElementById("root")!).render(
         </Routes>
         <FloatingThemeToggle />
       </BrowserRouter>
+      </AssessmentProvider>
     </ThemeProvider>
   </StrictMode>
 );

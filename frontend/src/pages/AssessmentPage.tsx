@@ -28,11 +28,6 @@ import SymptomsStep from "@/components/assessment/steps/SymptomsStep";
 import EnvironmentalStep from "@/components/assessment/steps/EnvironmentalStep";
 
 import { useAssessment } from "@/context/AssessmentContext";
-import { predictPatient } from "@/api/patientApi";
-import type {
-  PredictRequest,
-  PredictResponse,
-} from "@/types/patient";
 
 
 
@@ -87,9 +82,7 @@ const sectionMeta = [
 
 export function AssessmentPage() {
   return (
-    <AssessmentProvider>
       <AssessmentContent />
-    </AssessmentProvider>
   );
 }
 
@@ -99,39 +92,14 @@ function AssessmentContent() {
 
   const [step, setStep] = useState(0);
   const [direction, setDirection] = useState<1 | -1>(1);
-  const [loading, setLoading] = useState(false);
 
   const go = (next: number) => {
     setDirection(next > step ? 1 : -1);
     setStep(next);
   };
 
-  const handleSubmit = async () => {
-  try {
-    setLoading(true);
-
-    const response = await predictPatient<
-      PredictRequest,
-      PredictResponse
-    >({
-      patient,
-    });
-
-    navigate("/analysis", {
-      state: response.data,
-    });
-  } 
-  catch (error) {
-  console.error("Prediction Error:", error);
-
-  if (error instanceof Error) {
-    alert(error.message);
-  } else {
-    alert("Unknown Error");
-  }} 
-  finally {
-    setLoading(false);
-  }
+  const handleSubmit = () => {
+  navigate("/analysis");
 };
 
   return (
@@ -276,21 +244,17 @@ function AssessmentContent() {
                   variant="glow"
                   size="md"
                   onClick={handleSubmit}
-                  disabled={loading}
+                  disabled={false}
                   className="group"
                   >
-                    {loading 
-                    ? "Running CuraCore™ Analysis..."
-                    : "Run CuraCore™ Analysis"}
+                    Run CuraCore™ Analysis
                     
-                    {!loading && (
-                      <ArrowRight
-                      size={16}
-                      className="transition-transform group-hover:translate-x-0.5"
-                      />
-                      )}
-                      </Button>
-                )}
+                    <ArrowRight
+                    size={16}
+                    className="transition-transform group-hover:translate-x-0.5"
+                    />
+                    </Button>
+                   )}
               </div>
             </div>
           </main>

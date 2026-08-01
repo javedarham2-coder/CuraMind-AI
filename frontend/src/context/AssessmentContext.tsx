@@ -1,9 +1,17 @@
 import { createContext, useContext, useState, type ReactNode } from "react";
-import type { Patient } from "@/types/patient";
+import type {
+  Patient,
+  PredictResponse,
+} from "@/types/patient";
 
 interface AssessmentContextType {
   patient: Patient;
   updatePatient: (updater: (patient: Patient) => Patient) => void;
+
+  report: PredictResponse | null;
+  setReport: React.Dispatch<
+    React.SetStateAction<PredictResponse | null>
+  >;
 }
 
 const AssessmentContext = createContext<AssessmentContextType | undefined>(undefined);
@@ -19,7 +27,17 @@ const initialPatient: Patient = {
 
 export function AssessmentProvider({ children }: { children: ReactNode }) {
   const [patient, setPatient] = useState(initialPatient);
-  return <AssessmentContext.Provider value={{ patient, updatePatient: (updater) => setPatient(updater) }}>{children}</AssessmentContext.Provider>;
+  const [report, setReport] =
+  useState<PredictResponse | null>(null);
+  return <AssessmentContext.Provider
+  value={{
+    patient,
+    updatePatient: (updater) => setPatient(updater),
+
+    report,
+    setReport,
+  }}
+  >{children}</AssessmentContext.Provider>;
 }
 
 export function useAssessment() {
