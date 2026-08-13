@@ -55,11 +55,25 @@ class ExplanationEngine:
 
         return "Low"
 
+    def _is_cancer_applicable(self, cancer, gender):
+        gender = str(gender).strip().lower()
+
+        if gender == "male" and cancer in {"breast", "cervical"}:
+            return False
+
+        if gender == "female" and cancer == "prostate":
+            return False
+
+        return True
+
     def generate(self, scores, patient):
 
         report = {}
+        gender = self.get_value(patient, ["personal_information", "gender"])
 
         for cancer, score in scores.items():
+            if not self._is_cancer_applicable(cancer, gender):
+                continue
 
             reasons = []
 

@@ -8,7 +8,8 @@ from pprint import pprint
 
 patient = {
     "personal_information": {
-        "age": 58
+        "age": 58,
+        "gender": "male"
     },
 
     "lifestyle": {

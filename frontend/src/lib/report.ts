@@ -20,9 +20,14 @@ export function getPrimaryResult(response: PredictResponse): CancerRiskResult | 
   );
 }
 
-export function getOverallRisk(response: PredictResponse): { score: number; level: RiskLevel } {
+export function getOverallRisk(response: PredictResponse): { score: number; level: RiskLevel; percent: number } {
   const primary = getPrimaryResult(response);
-  return primary ? { score: primary.score, level: primary.risk } : { score: 0, level: "Low" };
+  const score = primary ? primary.score : 0;
+  return {
+    score,
+    level: primary ? primary.risk : "Low",
+    percent: Math.min(100, Math.max(0, score)),
+  };
 }
 
 export function getSignalCount(response: PredictResponse): number {
