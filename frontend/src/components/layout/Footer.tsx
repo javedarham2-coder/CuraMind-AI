@@ -2,9 +2,9 @@ import { Mail } from "lucide-react";
 
 // Replace these placeholder URLs with Mohammad Arham Javed's profile links.
 const socialLinks = [
-  { label: "LinkedIn", href: "https://www.linkedin.com/in/your-profile", icon: LinkedinIcon },
-  { label: "GitHub", href: "https://github.com/your-username", icon: GithubIcon },
-  { label: "Email", href: "mailto:your.email@example.com", icon: Mail },
+  { label: "LinkedIn", href: "https://www.linkedin.com/in/arhamjaved/", icon: LinkedinIcon },
+  { label: "GitHub", href: "https://github.com/javedarham2-coder", icon: GithubIcon },
+  { label: "Email", href: "mailto:javedarham2@gmail.com", icon: Mail },
 ];
 
 export function Footer() {
@@ -12,7 +12,7 @@ export function Footer() {
     <footer className="relative overflow-hidden border-t border-white/10 bg-navy-500 text-white">
       <div className="absolute inset-0 bg-mesh-hero opacity-20 pointer-events-none" />
       <div className="relative mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 px-5 py-5 sm:flex-row sm:px-8">
-        <p className="text-center text-xs text-navy-100/65 sm:text-left">
+        <p className="text-center text-sm font-bold text-green-200 [text-shadow:0_0_16px_rgba(74,222,128,0.55)] sm:text-left sm:text-base">
           © {new Date().getFullYear()} Mohammad Arham Javed. All rights reserved.
         </p>
 
@@ -23,11 +23,11 @@ export function Footer() {
               href={href}
               target={href.startsWith("http") ? "_blank" : undefined}
               rel={href.startsWith("http") ? "noreferrer" : undefined}
-              className="inline-flex h-8 w-8 items-center justify-center rounded-md text-navy-100/75 transition-colors hover:bg-white/10 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400"
+              className="inline-flex h-10 w-10 items-center justify-center rounded-md text-navy-100/75 transition-colors hover:bg-white/10 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400"
               aria-label={label}
               title={label}
             >
-              <Icon size={17} />
+              <Icon size={25} />
             </a>
           ))}
         </nav>
