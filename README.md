@@ -162,12 +162,11 @@ The frontend presents:
 The frontend communicates with the FastAPI backend through REST API endpoints.
 
 ---
----
 
 # 🖥️ How CuraMind Works
 
 ### 🏠 1. Start Screening
-Begin the CuraMind cancer-risk screening journey from the landing page.By clicking on Start Screening
+Begin the CuraMind cancer-risk screening journey by clicking "Start Screening" on the landing page.
 
 <img width="1680" height="932" alt="CuraMind Landing Page" src="https://github.com/user-attachments/assets/5e9f8252-95be-46e0-a638-f1c26289851f" />
 
@@ -181,7 +180,7 @@ Complete a guided 7-step assessment covering personal, lifestyle, family, medica
 ---
 
 ### 📄 3. Medical Reports
-Optionally upload supporting medical reports before running the analysis. Then Click on Run CuraCore Analyse.
+Optionally upload supporting medical reports before clicking "Run CuraCore™ Analysis" to begin the screening process.
 
 <img width="1680" height="932" alt="CuraMind Medical Reports" src="https://github.com/user-attachments/assets/34c59bc1-3e6d-4956-b65d-7d636e01c9d0" />
 
@@ -375,8 +374,8 @@ The backend currently exposes the following primary endpoints:
 ## 1. Clone the repository
 
 ```bash
-git clone <https://github.com/javedarham2-coder/CuraMind-AI.git>
-cd CuraMind
+git clone https://github.com/javedarham2-coder/CuraMind-AI.git
+cd CuraMind-AI
 ```
 
 ---
