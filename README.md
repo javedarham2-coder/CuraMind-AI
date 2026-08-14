@@ -1,2 +1,550 @@
-# CuraMind-AI
-TNX Codathon Prototype Project Development
+# 🧠 CuraMind
+
+### AI-Assisted Early Cancer Risk Screening & Clinical Decision Support
+
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-CuraMind-6C4CE8?style=for-the-badge)](https://curamind-ai.netlify.app/)
+[![Backend API](https://img.shields.io/badge/Backend-FastAPI-009688?style=for-the-badge)](https://curamind-ai-mx76.onrender.com/)
+[![Track](https://img.shields.io/badge/TNX%20Codathon-HealthTech%20%26%20Social%20Impact-7C3AED?style=for-the-badge)](#)
+
+**CuraMind** is an AI-assisted preventive healthcare platform designed to simplify the early cancer screening journey.
+
+It collects relevant patient information—including demographics, lifestyle factors, family history, medical information, environmental factors, and symptoms—and processes the assessment through **CuraCore™**, our rule-based risk screening engine.
+
+The system generates cancer-wise risk scores, explains contributing factors, and provides personalized screening-oriented recommendations.
+
+> ⚕️ **Important:** CuraMind is a screening and clinical decision-support prototype. It does **not** diagnose or predict cancer and does not replace qualified medical professionals or clinical evaluation.
+
+---
+
+## 🚀 Live Prototype
+
+### 🌐 Frontend
+
+**https://curamind-ai.netlify.app/**
+
+### ⚙️ Backend API
+
+**https://curamind-ai-mx76.onrender.com/**
+
+### ❤️ Health Check
+
+**https://curamind-ai-mx76.onrender.com/health**
+
+The deployed prototype connects the React frontend to the FastAPI backend and runs the CuraCore risk-screening workflow end-to-end.
+
+---
+
+# 🎯 Problem
+
+Cancer screening can be confusing and delayed because people may:
+
+* Ignore early symptoms
+* Be unaware of important risk factors
+* Not know which screening pathway is appropriate
+* Search for information across disconnected sources
+* Reach healthcare providers later than ideal
+
+Healthcare providers can also benefit from better-organized patient information and risk-screening support.
+
+CuraMind aims to simplify this journey by bringing **patient assessment, risk screening, explanations, and recommendations into one workflow.**
+
+---
+
+# 💡 Solution
+
+CuraMind follows a patient-to-screening workflow:
+
+```text
+👤 Patient
+    ↓
+📋 Health Assessment
+    ↓
+🧠 CuraCore™ Risk Engine
+    ↓
+🎯 Cancer-Wise Risk Results
+    ↓
+💡 Personalized Recommendations
+    ↓
+👨‍⚕️ Clinical Review
+```
+
+The current prototype focuses on the first five stages and provides a working end-to-end screening workflow.
+
+---
+
+# 🧠 CuraCore™
+
+**CuraCore™** is the current intelligence layer of CuraMind.
+
+The present prototype uses a **transparent rule-based risk engine** rather than a trained machine-learning model.
+
+### Current pipeline
+
+```text
+Patient Data
+     ↓
+Configured Risk Rules & Weights
+     ↓
+Cancer-Wise Risk Scores
+     ↓
+Risk Classification
+     ↓
+Explanation Engine
+     ↓
+Recommendation Engine
+     ↓
+Final Screening Report
+```
+
+### Risk Engine
+
+The risk engine evaluates configured rules against patient information and symptom data to calculate cancer-wise scores.
+
+### Explanation Engine
+
+The explanation engine identifies the matched risk factors and generates understandable reasons associated with the calculated scores.
+
+### Recommendation Engine
+
+The recommendation engine uses the resulting risk level and configured cancer-specific information to generate:
+
+* Recommended actions
+* Next steps
+* Relevant specialists
+* Lifestyle guidance
+* Tests to discuss where applicable
+
+---
+
+# ✨ Current Features
+
+### 👤 Patient Assessment
+
+The assessment workflow collects structured information across multiple areas:
+
+* Personal information
+* Medical information
+* Lifestyle
+* Family history
+* Environmental factors
+* Symptoms
+* Relevant reports/information
+
+### 🧠 Rule-Based Risk Screening
+
+CuraCore™ evaluates the submitted information using configured rules and risk weights.
+
+### 🎯 Cancer-Wise Risk Assessment
+
+The backend calculates scores for the supported cancer categories and classifies applicable results into risk levels.
+
+### 🔍 Explainable Results
+
+The system provides the factors/rules that contributed to the calculated risk score.
+
+### 💡 Personalized Recommendations
+
+Recommendations are generated according to the resulting risk level and cancer-specific configuration.
+
+### 📊 Results Dashboard
+
+The frontend presents:
+
+* Overall risk
+* Cancer-wise scores
+* Risk levels
+* Contributing factors
+* Recommended actions
+* Suggested tests
+* Lifestyle guidance
+
+### 🔄 Full-Stack Integration
+
+The frontend communicates with the FastAPI backend through REST API endpoints.
+
+---
+
+# 🏗️ System Architecture
+
+```text
+                    ┌──────────────────────┐
+                    │       Patient        │
+                    └──────────┬───────────┘
+                               │
+                               ▼
+                    ┌──────────────────────┐
+                    │   React + Vite UI    │
+                    │      Frontend        │
+                    └──────────┬───────────┘
+                               │
+                         REST API
+                               │
+                               ▼
+                    ┌──────────────────────┐
+                    │    FastAPI Backend   │
+                    └──────────┬───────────┘
+                               │
+                ┌──────────────┼──────────────┐
+                ▼              ▼              ▼
+        ┌────────────┐ ┌─────────────┐ ┌──────────────┐
+        │ Risk Engine│ │ Explanation │ │ Recommendation│
+        │            │ │   Engine    │ │    Engine     │
+        └─────┬──────┘ └──────┬──────┘ └──────┬───────┘
+              │               │               │
+              └───────────────┼───────────────┘
+                              ▼
+                    ┌──────────────────────┐
+                    │   Screening Report   │
+                    │ Risk + Reasons +     │
+                    │ Recommendations      │
+                    └──────────┬───────────┘
+                               │
+                               ▼
+                    ┌──────────────────────┐
+                    │   Results Dashboard  │
+                    └──────────────────────┘
+```
+
+---
+
+# 🛠️ Technology Stack
+
+## Frontend
+
+* React
+* TypeScript
+* Vite
+* Tailwind CSS
+* React Router
+* Framer Motion
+* Lucide React
+* Three.js / Spline tooling
+
+## Backend
+
+* Python
+* FastAPI
+* Uvicorn
+* Pydantic
+
+## Risk & Intelligence Layer
+
+* CuraCore™ Rule-Based Risk Engine
+* Risk Weight Configuration
+* Explanation Engine
+* Recommendation Engine
+* JSON-based configuration
+
+## Deployment
+
+* **Netlify** — Frontend
+* **Render** — Backend
+
+---
+
+# 📁 Project Structure
+
+```text
+CuraMind/
+│
+├── backend/
+│   ├── api/
+│   │   └── routes.py
+│   │
+│   ├── config/
+│   │   ├── patient_schema.json
+│   │   ├── recommendations.json
+│   │   └── risk_weights.json
+│   │
+│   ├── exceptions/
+│   │   └── handlers.py
+│   │
+│   ├── models/
+│   │   ├── request_models.py
+│   │   └── response_models.py
+│   │
+│   ├── services/
+│   │   ├── risk_engine.py
+│   │   ├── explanation_engine.py
+│   │   └── recommendation_engine.py
+│   │
+│   ├── utils/
+│   │   └── responses.py
+│   │
+│   ├── main.py
+│   ├── requirements.txt
+│   └── test_engine.py
+│
+├── frontend/
+│   ├── public/
+│   ├── src/
+│   │   ├── api/
+│   │   ├── assets/
+│   │   ├── components/
+│   │   ├── context/
+│   │   ├── hooks/
+│   │   ├── lib/
+│   │   ├── pages/
+│   │   ├── types/
+│   │   ├── App.tsx
+│   │   └── main.tsx
+│   │
+│   ├── package.json
+│   ├── package-lock.json
+│   ├── vite.config.ts
+│   └── tsconfig.json
+│
+├── patient_schema.md
+└── README.md
+```
+
+---
+
+# 🔌 API
+
+The backend currently exposes the following primary endpoints:
+
+| Method | Endpoint   | Purpose                                                   |
+| ------ | ---------- | --------------------------------------------------------- |
+| `GET`  | `/`        | API information                                           |
+| `GET`  | `/health`  | Health check                                              |
+| `POST` | `/predict` | Process patient assessment and generate screening results |
+
+### Example health response
+
+```json
+{
+  "success": true,
+  "message": "API is healthy.",
+  "data": {
+    "status": "healthy"
+  }
+}
+```
+
+---
+
+# 💻 Local Development
+
+## 1. Clone the repository
+
+```bash
+git clone <YOUR_GITHUB_REPOSITORY_URL>
+cd CuraMind
+```
+
+---
+
+## 2. Start the backend
+
+```bash
+cd backend
+```
+
+Create/activate a Python virtual environment if required:
+
+```bash
+python -m venv venv
+```
+
+### macOS / Linux
+
+```bash
+source venv/bin/activate
+```
+
+### Windows
+
+```bash
+venv\Scripts\activate
+```
+
+Install dependencies:
+
+```bash
+pip install -r requirements.txt
+```
+
+Start FastAPI:
+
+```bash
+uvicorn main:app --reload
+```
+
+The backend will normally run at:
+
+```text
+http://127.0.0.1:8000
+```
+
+---
+
+## 3. Start the frontend
+
+Open another terminal:
+
+```bash
+cd frontend
+npm install
+```
+
+Create/update the frontend environment file:
+
+```env
+VITE_API_URL=http://127.0.0.1:8000
+```
+
+Then start Vite:
+
+```bash
+npm run dev
+```
+
+The frontend will normally be available at the local Vite URL shown in the terminal.
+
+---
+
+# 🌐 Production Deployment
+
+The current prototype uses:
+
+```text
+GitHub
+   │
+   ├── Frontend → Netlify
+   │
+   └── Backend  → Render
+```
+
+The frontend communicates with the deployed backend through:
+
+```env
+VITE_API_URL=https://curamind-ai-mx76.onrender.com
+```
+
+### Deployment workflow
+
+```text
+Edit Code
+    ↓
+Test Locally
+    ↓
+Git Commit
+    ↓
+Git Push
+    ↓
+GitHub
+    ├──────────────→ Netlify
+    │                 Frontend Deployment
+    │
+    └──────────────→ Render
+                      Backend Deployment
+```
+
+---
+
+# 🧪 Current Prototype Status
+
+### 🟢 Working
+
+* Patient assessment
+* Frontend/backend integration
+* FastAPI API
+* CuraCore rule-based risk engine
+* Cancer-wise risk scoring
+* Risk classification
+* Explanation generation
+* Personalized recommendations
+* Results/report interface
+* End-to-end deployed workflow
+
+### 🟡 Not currently implemented
+
+* Doctor/clinical dashboard
+* Persistent patient database
+* Production authentication
+* Advanced hospital/doctor locator functionality
+* Full production-grade healthcare infrastructure
+
+### 🔵 Planned Future Enhancements
+
+* Curated cancer-risk datasets
+* Unified machine-learning training dataset
+* Machine-learning-based risk estimation
+* Random Forest / Gradient Boosting model comparison
+* SHAP-based explainability
+* Medical report analysis
+* Expanded clinical workflows
+* Production-grade security and deployment
+
+> The current hackathon prototype intentionally uses a **rule-based engine** so that the screening logic remains transparent and explainable.
+
+---
+
+# 🛣️ Roadmap
+
+### Phase 1 — Assessment
+
+Patient registration and structured health assessment.
+
+### Phase 2 — CuraCore™ Screening
+
+Rule-based cancer risk screening and risk stratification.
+
+### Phase 3 — Personalized Guidance
+
+Screening-oriented recommendations and explainable results.
+
+### Phase 4 — Clinical Workflow
+
+Doctor dashboard, patient prioritization, clinical validation, and follow-up planning.
+
+### Phase 5 — Future AI Enhancement
+
+Machine-learning models, SHAP explainability, medical report analysis, and broader deployment.
+
+---
+
+# ⚕️ Medical Disclaimer
+
+**CuraMind is an AI-assisted screening and clinical decision-support prototype.**
+
+It does **not** diagnose cancer, confirm the presence of cancer, or replace professional medical evaluation.
+
+The risk scores and recommendations generated by CuraCore™ are intended to support screening awareness and decision-making. Users should consult qualified healthcare professionals for appropriate medical assessment, testing, diagnosis, and treatment.
+
+---
+
+# 👥 Team
+
+### TNX Codathon 2K26
+
+**Team Members**
+
+* **Mohammad Arham Javed**
+* **Mohammad Raiyan**
+* **Avnee Shukla**
+
+**Track:** HealthTech & Social Impact
+
+---
+
+# 📄 Hackathon
+
+CuraMind was developed as a prototype for **TNX Codathon 2K26** under the **HealthTech & Social Impact** track.
+
+The project focuses on using technology to improve preventive healthcare access, cancer-risk screening awareness, explainable risk assessment, and clinician-supported decision-making.
+
+---
+
+## 🔗 Links
+
+* 🌐 **Live Prototype:** https://curamind-ai.netlify.app/
+* ⚙️ **Backend API:** https://curamind-ai-mx76.onrender.com/
+* ❤️ **API Health:** https://curamind-ai-mx76.onrender.com/health
+
+---
+
+### Made with ❤️ for more accessible and explainable preventive healthcare.
+
+**CuraMind — Earlier Screening. Better Decisions. Better Outcomes.**
