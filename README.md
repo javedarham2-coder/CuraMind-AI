@@ -4,7 +4,6 @@
 
 [![Live Demo](https://img.shields.io/badge/Live%20Demo-CuraMind-6C4CE8?style=for-the-badge)](https://curamind-ai.netlify.app/)
 [![Backend API](https://img.shields.io/badge/Backend-FastAPI-009688?style=for-the-badge)](https://curamind-ai-mx76.onrender.com/)
-[![Track](https://img.shields.io/badge/TNX%20Codathon-HealthTech%20%26%20Social%20Impact-7C3AED?style=for-the-badge)](#)
 
 **CuraMind** is an AI-assisted preventive healthcare platform designed to simplify the early cancer screening journey.
 
