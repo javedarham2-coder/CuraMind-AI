@@ -162,6 +162,53 @@ The frontend presents:
 The frontend communicates with the FastAPI backend through REST API endpoints.
 
 ---
+---
+
+# 🖥️ How CuraMind Works
+
+### 🏠 1. Start Screening
+Begin the CuraMind cancer-risk screening journey from the landing page.By clicking on Start Screening
+
+<img width="1680" height="932" alt="CuraMind Landing Page" src="https://github.com/user-attachments/assets/5e9f8252-95be-46e0-a638-f1c26289851f" />
+
+---
+
+### 📋 2. Health Assessment
+Complete a guided 7-step assessment covering personal, lifestyle, family, medical, symptom, and environmental factors.
+
+<img width="1680" height="932" alt="CuraMind Health Assessment" src="https://github.com/user-attachments/assets/79affe94-d9f0-4f44-8e93-fd557a607945" />
+
+---
+
+### 📄 3. Medical Reports
+Optionally upload supporting medical reports before running the analysis. Then Click on Run CuraCore Analyse.
+
+<img width="1680" height="932" alt="CuraMind Medical Reports" src="https://github.com/user-attachments/assets/34c59bc1-3e6d-4956-b65d-7d636e01c9d0" />
+
+---
+
+### 🧠 4. CuraCore™ Analysis
+The rule-based CuraCore™ engine evaluates submitted risk factors and generates screening results.
+
+<img width="1293" height="755" alt="CuraCore Analysis" src="https://github.com/user-attachments/assets/b9ac03f8-b0fe-4ccd-830f-27a2fdbc8adf" />
+
+---
+
+### 🎯 5. Risk Dashboard
+View overall risk, cancer-wise scores, priority areas, recommended specialists, and contributing risk factors.
+
+<img width="1680" height="932" alt="CuraMind Risk Dashboard" src="https://github.com/user-attachments/assets/ec08327d-6f2c-481a-9413-3a9a0857b665" />
+
+---
+
+### 📑 6. Final Report
+Review, share, print, or download the generated CuraCore™ screening report.
+
+<img width="1680" height="932" alt="CuraMind Final Report" src="https://github.com/user-attachments/assets/1ab3de50-0725-4efc-bb20-b4d17920548f" />
+
+<img width="1680" height="932" alt="CuraMind Cancer Wise Report" src="https://github.com/user-attachments/assets/a1694bee-61bf-41e8-89c0-21cee1ae72a0" />
+
+---
 
 # 🏗️ System Architecture
 
