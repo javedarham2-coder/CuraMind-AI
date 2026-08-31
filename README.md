@@ -552,14 +552,42 @@ npm install
 ```
 
 ---
-
 ## 7. Configure the frontend API URL
 
-Inside the `frontend` folder, create or update the `.env` file:
+Before starting the frontend, you **must create a `.env` file inside the `frontend` folder**. This tells CuraMind where the local backend is running.
+
+First, make sure you are inside the `frontend` folder:
+
+```bash
+cd frontend
+```
+
+Create a new file named exactly:
+
+```text
+.env
+```
+
+Your folder should look like this:
+
+```text
+CuraMind-AI/
+├── backend/
+└── frontend/
+    ├── .env
+    ├── package.json
+    └── ...
+```
+
+Open the `.env` file and paste **exactly this line**:
 
 ```env
 VITE_API_URL=http://127.0.0.1:8000
 ```
+
+Save the file.
+
+> ⚠️ **Important:** The file must be named `.env` — not `.env.txt`, and it must be inside the `frontend` folder.
 
 This connects the frontend to the local FastAPI backend.
 
