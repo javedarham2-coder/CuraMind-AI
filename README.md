@@ -371,46 +371,149 @@ The backend currently exposes the following primary endpoints:
 
 # 💻 Local Development
 
-## 1. Clone the repository
+Follow the steps below in order to run CuraMind locally.
+
+---
+
+## 1. Prerequisites
+
+Before starting, make sure your computer has the following installed:
+
+- Python 3.10 or newer
+- Node.js 18 or newer
+- Git
+- VS Code (recommended)
+
+### Check if they are installed
+
+Open a terminal in VS Code and run:
+
+```bash
+python --version
+node --version
+npm --version
+git --version
+````
+
+If any command says that it is not recognized, install the missing software first.
+
+### Windows
+
+If `winget` is available, you can install the required tools with:
+
+```powershell
+winget install Python.Python.3.10
+winget install OpenJS.NodeJS.LTS
+winget install Git.Git
+```
+
+After installation, restart VS Code and check the versions again.
+
+### macOS
+
+If you use Homebrew:
+
+```bash
+brew install python
+brew install node
+brew install git
+```
+
+Then verify:
+
+```bash
+python3 --version
+node --version
+npm --version
+git --version
+```
+
+---
+
+## 2. Clone the repository
+
+Clone the CuraMind repository and open the project folder:
 
 ```bash
 git clone https://github.com/javedarham2-coder/CuraMind-AI.git
 cd CuraMind-AI
 ```
 
+Make sure you are now inside the main `CuraMind-AI` folder.
+
 ---
 
-## 2. Start the backend
+## 3. Create the Python virtual environment
+
+⚠️ **Important:** Create the virtual environment inside the main `CuraMind-AI` folder, NOT inside `backend`.
+
+Run this while you are in the project root:
+
+```bash
+python -m venv .venv
+```
+
+After this, your project should look like:
+
+```text
+CuraMind-AI/
+├── .venv/
+├── backend/
+├── frontend/
+└── README.md
+```
+
+---
+
+## 4. Activate the virtual environment
+
+### Windows PowerShell
+
+Run:
+
+```powershell
+.\.venv\Scripts\Activate.ps1
+```
+
+If PowerShell blocks the activation script, run:
+
+```powershell
+Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
+```
+
+Then activate again:
+
+```powershell
+.\.venv\Scripts\Activate.ps1
+```
+
+You should see `(.venv)` at the beginning of your terminal.
+
+### macOS / Linux
+
+Run:
+
+```bash
+source .venv/bin/activate
+```
+
+---
+
+## 5. Start the backend
+
+Now enter the backend folder:
 
 ```bash
 cd backend
 ```
 
-Create/activate a Python virtual environment if required:
-
-```bash
-python -m venv venv
-```
-
-### macOS / Linux
-
-```bash
-source venv/bin/activate
-```
-
-### Windows
-
-```bash
-venv\Scripts\activate
-```
-
-Install dependencies:
+Install the backend dependencies:
 
 ```bash
 pip install -r requirements.txt
 ```
 
-Start FastAPI:
+Start the FastAPI backend:
 
 ```bash
 uvicorn main:app --reload
@@ -422,30 +525,98 @@ The backend will normally run at:
 http://127.0.0.1:8000
 ```
 
+Keep this terminal running.
+
 ---
 
-## 3. Start the frontend
+## 6. Start the frontend
 
-Open another terminal:
+Open a **new terminal** in VS Code.
+
+Go back to the project root:
+
+```bash
+cd CuraMind-AI
+```
+
+Then enter the frontend folder:
 
 ```bash
 cd frontend
+```
+
+Install the frontend dependencies:
+
+```bash
 npm install
 ```
 
-Create/update the frontend environment file:
+---
+
+## 7. Configure the frontend API URL
+
+Inside the `frontend` folder, create or update the `.env` file:
 
 ```env
 VITE_API_URL=http://127.0.0.1:8000
 ```
 
-Then start Vite:
+This connects the frontend to the local FastAPI backend.
+
+---
+
+## 8. Start the frontend
+
+Run:
 
 ```bash
 npm run dev
 ```
 
-The frontend will normally be available at the local Vite URL shown in the terminal.
+Vite will show a local URL in the terminal, usually:
+
+```text
+http://localhost:5173
+```
+
+Open that URL in your browser.
+
+---
+
+## 9. Local development complete 🎉
+
+You should now have:
+
+```text
+Frontend → http://localhost:5173
+              ↓
+Backend  → http://127.0.0.1:8000
+```
+
+Keep both terminals running while using CuraMind locally.
+
+### If you make code changes
+
+* Frontend changes are automatically refreshed by Vite.
+* Backend changes are automatically reloaded by Uvicorn.
+* If you pull new changes from GitHub, run:
+
+```bash
+git pull
+```
+
+Then install any new dependencies if `requirements.txt` or `package.json` has changed:
+
+```bash
+pip install -r backend/requirements.txt
+```
+
+and/or:
+
+```bash
+cd frontend
+npm install
+```
 
 ---
 
