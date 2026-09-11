@@ -796,5 +796,5 @@ in the repository.
 
 | Name | Role | Contact |
 |---|---|---|
-| **Mohammad Raiyan** | Frontend Developer | +91 9336078040 |
-| **Avnee Shukla** | Presentation & UI/UX Designer | +91 9651440786 |
+| **Mohammad Raiyan** | Frontend Developer | +91 9651440786 |
+| **Avnee Shukla** | Presentation & UI/UX Designer | +91 9336078040 |
