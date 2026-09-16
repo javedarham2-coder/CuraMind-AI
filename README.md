@@ -212,43 +212,50 @@ Review, share, print, or download the generated CuraCore™ screening report.
 # 🏗️ System Architecture
 
 ```text
-                    ┌──────────────────────┐
-                    │       Patient        │
-                    └──────────┬───────────┘
-                               │
-                               ▼
-                    ┌──────────────────────┐
-                    │   React + Vite UI    │
-                    │      Frontend        │
-                    └──────────┬───────────┘
-                               │
-                         REST API
-                               │
-                               ▼
-                    ┌──────────────────────┐
-                    │    FastAPI Backend   │
-                    └──────────┬───────────┘
-                               │
-                ┌──────────────┼──────────────┐
-                ▼              ▼              ▼
-        ┌────────────┐ ┌─────────────┐ ┌──────────────┐
-        │ Risk Engine│ │ Explanation │ │ Recommendation│
-        │            │ │   Engine    │ │    Engine     │
-        └─────┬──────┘ └──────┬──────┘ └──────┬───────┘
-              │               │               │
-              └───────────────┼───────────────┘
-                              ▼
-                    ┌──────────────────────┐
-                    │   Screening Report   │
-                    │ Risk + Reasons +     │
-                    │ Recommendations      │
-                    └──────────┬───────────┘
-                               │
-                               ▼
-                    ┌──────────────────────┐
-                    │   Results Dashboard  │
-                    └──────────────────────┘
+Final CuraMind prediction flow
+
+User completes CuraMind assessment
+             ↓
+Frontend sends all assessment data to backend
+             ↓
+Shared preprocessing layer
+  • age
+  • sex
+  • BMI
+  • smoking
+  • lifestyle
+  • medical history
+             ↓
+CuraMind model router
+             ↓
+  ┌──────────────────────────────┐
+  │ Lung Cancer Model       → Risk score │
+  │ Breast Cancer Model      → Risk score │
+  │ Oral Cancer Model        → Risk score │
+  │ Colorectal Cancer Model  → Risk score │
+  │ Cervical Cancer Model    → Risk score │
+  │ Prostate Cancer Model    → Risk score │
+  └──────────────────────────────┘
+             ↓
+Risk validation + normalization
+             ↓
+Risk factor breakdown dashboard
 ```
+
+### Example prediction output
+
+If a user submits their assessment, the frontend can display the model results as a cancer-wise breakdown:
+
+```text
+Lung Cancer        → 72
+Breast Cancer      → 14
+Oral Cancer        → 8
+Colorectal Cancer  → 31
+Cervical Cancer    → N/A
+Prostate Cancer    → N/A
+```
+
+The dashboard presents these scores visually alongside the contributing risk factors, explanations, and recommendations.
 
 ---
 
