@@ -7,8 +7,12 @@ node_modules/
 # Python
 # ==========================
 venv/
+.venv/
 __pycache__/
 *.pyc
+
+# Generated type-checker output
+*.tsbuildinfo
 
 # ==========================
 # Environment

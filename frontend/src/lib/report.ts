@@ -1,7 +1,12 @@
 import type { CancerRiskResult, PredictResponse, Recommendation, RiskBreakdown, RiskLevel } from "@/types/patient";
 
-export function getReportEntries(response: PredictResponse): Array<[string, CancerRiskResult]> {
-  return Object.entries(response.report);
+export function getReportEntries(
+  response: PredictResponse
+): Array<[string, CancerRiskResult]> {
+  
+  return Object.entries(response.report).filter(
+    ([cancer]) => cancer !== "ml_prediction"
+  ) as Array<[string, CancerRiskResult]>;
 }
 
 export function getRiskBreakdown(response: PredictResponse): RiskBreakdown[] {

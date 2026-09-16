@@ -18,9 +18,9 @@ const AssessmentContext = createContext<AssessmentContextType | undefined>(undef
 
 const initialPatient: Patient = {
   personal_information: { full_name: "", age: 0, gender: "", date_of_birth: "", height_cm: 0, weight_kg: 0, email: "", occupation: "" },
-  lifestyle: { smoking: { status: "", cigarettes_per_day: 0, years: 0 }, alcohol: { status: "", frequency: "" }, tobacco: null, physical_activity: "", diet: "", sleep_hours: 0, stress_level: "" },
+  lifestyle: { smoking: { status: "", cigarettes_per_day: 0, years: 0 }, alcohol: { status: "", frequency: "" }, tobacco: null, physical_activity: "", diet: "", sleep_hours: 0, stress_level: "", poor_mental_health_days: 0, poor_physical_health_days: 0, healthcare_coverage: null, unable_to_afford_doctor: null, general_health: "", routine_checkup_history: "" },
   family_history: { has_cancer_history: null, cancer_type: "", relationship: "", age_at_diagnosis: 0, multiple_members: null },
-  medical_history: { diabetes: false, hypertension: false, heart_disease: false, copd: false, previous_cancer: false, no_existing_conditions: false, other_condition: "", has_medications: null, medications: "", has_surgeries: null, surgeries: "", has_allergies: null, allergies: "", clinician_notes: "" },
+  medical_history: { diabetes: false, hypertension: false, heart_disease: false, copd: false, previous_cancer: false, no_existing_conditions: false, other_condition: "", has_low_dose_ct_scan: null, has_medications: null, medications: "", has_surgeries: null, surgeries: "", has_allergies: null, allergies: "", clinician_notes: "" },
   symptoms: { persistent_cough: false, weight_loss: false, fatigue: false, lump: false, blood_in_stool: false, difficulty_swallowing: false, voice_change: false, non_healing_ulcer: false, abnormal_bleeding: false, skin_changes: false, loss_of_appetite: false, other: "" },
   additional_information: { chemical_exposure: null, radiation_exposure: null, air_pollution_exposure: null },
 };

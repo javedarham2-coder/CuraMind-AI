@@ -48,31 +48,41 @@ export const Label = React.forwardRef<HTMLLabelElement, React.LabelHTMLAttribute
 );
 Label.displayName = "Label";
 
-export const Select = React.forwardRef<HTMLSelectElement, React.SelectHTMLAttributes<HTMLSelectElement>>(
-  ({ className, children, ...props }, ref) => (
-    <div className="relative">
-      <select
-        ref={ref}
-        className={cn(
-          "flex h-11 w-full appearance-none rounded-xl border border-surface-border bg-white pl-4 pr-10 text-sm",
-          "text-navy",
-          "transition-colors duration-200",
-          "focus:outline-none focus:ring-2 focus:ring-medical-500/20 focus:border-medical-500",
-          "disabled:cursor-not-allowed disabled:opacity-50",
-          className
-        )}
-        {...props}
-      >
-        {children}
-      </select>
-      <svg
-        className="pointer-events-none absolute right-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-navy-200"
-        viewBox="0 0 24 24"
-        fill="none"
-      >
-        <path d="M6 9l6 6 6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-      </svg>
-    </div>
-  )
+type SelectProps = React.SelectHTMLAttributes<HTMLSelectElement> & {
+  placeholder?: string;
+};
+
+export const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
+  ({ className, children, placeholder, value, ...props }, ref) => {
+    const hasValue = value !== undefined && value !== null && value !== "";
+
+    return (
+      <div className="relative">
+        <select
+          ref={ref}
+          value={value ?? ""}
+          className={cn(
+            "flex h-11 w-full appearance-none rounded-xl border border-surface-border bg-white pl-4 pr-10 text-sm",
+            hasValue ? "text-navy" : "text-navy-200/60",
+            "transition-colors duration-200",
+            "focus:outline-none focus:ring-2 focus:ring-medical-500/20 focus:border-medical-500",
+            "disabled:cursor-not-allowed disabled:opacity-50",
+            className
+          )}
+          {...props}
+        >
+          {placeholder && <option value="" disabled>{placeholder}</option>}
+          {children}
+        </select>
+        <svg
+          className="pointer-events-none absolute right-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-navy-200"
+          viewBox="0 0 24 24"
+          fill="none"
+        >
+          <path d="M6 9l6 6 6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+      </div>
+    );
+  }
 );
 Select.displayName = "Select";

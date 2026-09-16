@@ -33,6 +33,25 @@ export default function MedicalStep() {
   return <div className="space-y-6">
     <div><p className="text-sm font-medium text-navy">Existing conditions</p><div className="mt-3 grid sm:grid-cols-2 gap-3">{conditions.map(([key, label]) => <label key={key} className={cn("flex cursor-pointer items-center gap-3 rounded-xl border px-4 py-3 text-sm transition-all", history[key] ? "border-medical-500 bg-medical-50 text-medical-600" : "border-surface-border text-navy-300 hover:border-navy-200", history.no_existing_conditions && "cursor-not-allowed opacity-50")}><input type="checkbox" checked={history[key]} disabled={history.no_existing_conditions} onChange={(e) => update({ [key]: e.target.checked })} className="h-4 w-4 accent-medical-500" />{label}</label>)}<label className={cn("flex cursor-pointer items-center gap-3 rounded-xl border px-4 py-3 text-sm transition-all", history.no_existing_conditions ? "border-medical-500 bg-medical-50 text-medical-600" : "border-surface-border text-navy-300 hover:border-navy-200")}><input type="checkbox" checked={history.no_existing_conditions} onChange={(e) => setNoConditions(e.target.checked)} className="h-4 w-4 accent-medical-500" />No existing conditions</label></div></div>
     <Field label="Other condition"><Textarea value={history.other_condition} onChange={(e) => update({ other_condition: e.target.value })} placeholder="Write down any other existing condition" disabled={history.no_existing_conditions} /></Field>
+    <Field label="Have you ever had a low-dose CT scan for lung cancer screening?">
+      <div className="mt-3 grid gap-3 sm:grid-cols-2">
+        {[{ label: "Yes", value: true }, { label: "No", value: false }].map((option) => (
+          <button
+            key={String(option.value)}
+            type="button"
+            onClick={() => update({ has_low_dose_ct_scan: option.value })}
+            className={cn(
+              "rounded-xl border px-4 py-2.5 text-sm font-medium transition-all duration-200",
+              history.has_low_dose_ct_scan === option.value
+                ? "border-medical-500 bg-medical-50 text-medical-600 shadow-[0_0_0_1px_rgba(59,130,246,0.15),0_0_14px_rgba(59,130,246,0.18)] dark:border-medical-400 dark:bg-medical-500/20 dark:text-medical-200"
+                : "border-surface-border bg-surface-muted/80 text-navy-300 hover:border-navy-200 hover:text-navy dark:bg-white/5 dark:text-navy-200",
+            )}
+          >
+            {option.label}
+          </button>
+        ))}
+      </div>
+    </Field>
     {question("Current medications", "has_medications", "medications", "List current medications")}
     {question("Past surgeries", "has_surgeries", "surgeries", "List previous surgeries")}
     {question("Allergies", "has_allergies", "allergies", "List known allergies")}

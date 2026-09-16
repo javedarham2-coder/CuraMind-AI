@@ -23,6 +23,12 @@ export interface Patient {
     diet: string;
     sleep_hours: number;
     stress_level: string;
+    poor_mental_health_days: number;
+    poor_physical_health_days: number;
+    healthcare_coverage: boolean | null;
+    unable_to_afford_doctor: boolean | null;
+    general_health: string;
+    routine_checkup_history: string;
   };
   family_history: {
     has_cancer_history: boolean | null;
@@ -39,6 +45,7 @@ export interface Patient {
     previous_cancer: boolean;
     no_existing_conditions: boolean;
     other_condition: string;
+    has_low_dose_ct_scan: boolean | null;
     has_medications: boolean | null;
     medications: string;
     has_surgeries: boolean | null;
@@ -70,6 +77,25 @@ export interface Symptoms {
   other: string;
 }
 
+export interface MLPrediction {
+  prediction: {
+    probability: number;
+    probability_percent: number;
+    risk_category: "lower" | "elevated";
+    decision_threshold: number;
+    model_name: string;
+    target_definition: string;
+  };
+  explanations: {
+    feature: string;
+    label: string;
+    input_value: number;
+    shap_value: number;
+    direction: "positive" | "negative" | "neutral";
+    absolute_shap: number;
+  }[];
+}
+
 export interface PredictRequest { patient: Patient; }
 
 export type RiskLevel = "Low" | "Moderate" | "High";
@@ -92,7 +118,11 @@ export interface CancerRiskResult {
 
 export type Report = Record<string, CancerRiskResult>;
 
-export interface PredictResponse { report: Report; }
+export interface PredictResponse {
+  report: Report & {
+    ml_prediction?: MLPrediction;
+  };
+}
 
 export interface RiskBreakdown {
   key: string;

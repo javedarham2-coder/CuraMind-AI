@@ -28,7 +28,7 @@ import SymptomsStep from "@/components/assessment/steps/SymptomsStep";
 import EnvironmentalStep from "@/components/assessment/steps/EnvironmentalStep";
 
 import { useAssessment } from "@/context/AssessmentContext";
-
+import { predictPatient } from "@/api/patientApi";
 
 
 
@@ -98,9 +98,15 @@ function AssessmentContent() {
     setStep(next);
   };
 
-  const handleSubmit = () => {
-  navigate("/analysis");
-};
+  const handleSubmit = async () => {
+    try {
+      const response = await predictPatient({ patient });
+      console.log("CuraMind ML prediction:", response);
+      navigate("/analysis");
+    } catch (error) {
+      console.error("Prediction failed:", error);
+    }
+  };
 
   return (
     <div className="min-h-screen bg-gradient-soft">
