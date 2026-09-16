@@ -1,0 +1,48 @@
+import type { CancerRiskResult, PredictResponse, Recommendation, RiskBreakdown, RiskLevel } from "@/types/patient";
+
+export function getReportEntries(
+  response: PredictResponse
+): Array<[string, CancerRiskResult]> {
+  
+  return Object.entries(response.report).filter(
+    ([cancer]) => cancer !== "ml_prediction"
+  ) as Array<[string, CancerRiskResult]>;
+}
+
+export function getRiskBreakdown(response: PredictResponse): RiskBreakdown[] {
+  return getReportEntries(response).map(([cancer, result]) => ({
+    key: cancer,
+    label: cancer.charAt(0).toUpperCase() + cancer.slice(1),
+    score: result.score,
+    risk: result.risk,
+  }));
+}
+
+export function getPrimaryResult(response: PredictResponse): CancerRiskResult | null {
+  return getReportEntries(response).reduce<CancerRiskResult | null>(
+    (highest, [, result]) => !highest || result.score > highest.score ? result : highest,
+    null,
+  );
+}
+
+export function getOverallRisk(response: PredictResponse): { score: number; level: RiskLevel; percent: number } {
+  const primary = getPrimaryResult(response);
+  const score = primary ? primary.score : 0;
+  return {
+    score,
+    level: primary ? primary.risk : "Low",
+    percent: Math.min(100, Math.max(0, score)),
+  };
+}
+
+export function getSignalCount(response: PredictResponse): number {
+  return getReportEntries(response).reduce((count, [, result]) => count + result.reasons.length, 0);
+}
+
+export function getRecommendation(response: PredictResponse): Recommendation | null {
+  return getPrimaryResult(response)?.recommendation ?? null;
+}
+
+export function uniqueReportValues(response: PredictResponse, key: "tests_to_discuss" | "lifestyle"): string[] {
+  return [...new Set(getReportEntries(response).flatMap(([, result]) => result.recommendation[key] ?? []))];
+}

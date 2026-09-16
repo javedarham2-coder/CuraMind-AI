@@ -1,0 +1,123 @@
+{
+  "risk_levels": {
+    "Low": {
+      "urgency": "Routine Screening",
+      "show_tests": false,
+      "action": "No immediate diagnostic testing is recommended based on the current screening information.",
+      "next_steps": [
+        "Maintain a healthy lifestyle.",
+        "Repeat the screening in 6–12 months.",
+        "Consult a healthcare professional if symptoms persist, worsen, or new symptoms develop."
+      ]
+    },
+
+    "Moderate": {
+      "urgency": "Medical Consultation Recommended",
+      "show_tests": true,
+      "action": "A consultation with an appropriate healthcare professional is recommended to determine whether additional screening tests are needed.",
+      "next_steps": [
+        "Schedule a medical consultation within the next few weeks.",
+        "Discuss appropriate screening tests with your clinician.",
+        "Continue recommended lifestyle improvements."
+      ]
+    },
+
+    "High": {
+      "urgency": "Prompt Medical Evaluation",
+      "show_tests": true,
+      "action": "Prompt medical evaluation is recommended. Your clinician will determine the appropriate diagnostic investigations.",
+      "next_steps": [
+        "Consult a healthcare professional as soon as possible.",
+        "Follow your clinician's advice regarding diagnostic investigations.",
+        "Do not ignore persistent or worsening symptoms."
+      ]
+    }
+  },
+
+  "cancers": {
+
+    "lung": {
+      "specialist": "Pulmonologist",
+      "tests": [
+        "Low-dose CT Scan",
+        "Chest X-ray"
+      ],
+      "lifestyle": [
+        "Quit smoking",
+        "Avoid second-hand smoke",
+        "Exercise regularly",
+        "Maintain a healthy diet"
+      ]
+    },
+
+    "breast": {
+      "specialist": "Breast Surgeon / Oncologist",
+      "tests": [
+        "Clinical Breast Examination",
+        "Mammography",
+        "Breast Ultrasound"
+      ],
+      "lifestyle": [
+        "Maintain healthy weight",
+        "Exercise regularly",
+        "Limit alcohol consumption"
+      ]
+    },
+
+    "oral": {
+      "specialist": "ENT Specialist",
+      "tests": [
+        "Oral Examination",
+        "Biopsy",
+        "CT Scan"
+      ],
+      "lifestyle": [
+        "Stop tobacco use",
+        "Avoid alcohol",
+        "Maintain oral hygiene"
+      ]
+    },
+
+    "colorectal": {
+      "specialist": "Gastroenterologist",
+      "tests": [
+        "Colonoscopy",
+        "FIT Test",
+        "CT Colonography"
+      ],
+      "lifestyle": [
+        "Increase dietary fiber",
+        "Exercise regularly",
+        "Reduce processed meat"
+      ]
+    },
+
+    "cervical": {
+      "specialist": "Gynecologist",
+      "tests": [
+        "Pap Smear",
+        "HPV Test",
+        "Colposcopy"
+      ],
+      "lifestyle": [
+        "HPV vaccination",
+        "Regular screening",
+        "Quit smoking"
+      ]
+    },
+
+    "prostate": {
+      "specialist": "Urologist",
+      "tests": [
+        "PSA Blood Test",
+        "Digital Rectal Examination",
+        "MRI"
+      ],
+      "lifestyle": [
+        "Healthy diet",
+        "Exercise regularly",
+        "Maintain healthy weight"
+      ]
+    }
+  }
+}

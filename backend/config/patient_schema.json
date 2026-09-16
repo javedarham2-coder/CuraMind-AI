@@ -1,0 +1,70 @@
+{
+  "personal_information": {
+    "age": null,
+    "gender": "",
+    "height_cm": null,
+    "weight_kg": null,
+    "bmi": null
+  },
+
+  "lifestyle": {
+    "smoking": {
+      "status": "",
+      "cigarettes_per_day": 0,
+      "years": 0
+    },
+
+    "alcohol": {
+      "status": "",
+      "frequency": ""
+    },
+
+    "tobacco": false,
+
+    "physical_activity": ""
+  },
+
+  "family_history": {
+    "has_cancer_history": false,
+    "cancer_type": "",
+    "relationship": "",
+    "age_at_diagnosis": null,
+    "multiple_members": false
+  },
+
+  "medical_history": {
+    "diabetes": false,
+    "hypertension": false,
+    "heart_disease": false,
+    "copd": false,
+    "previous_cancer": false,
+    "surgeries": [],
+    "medications": [],
+    "allergies": []
+  },
+
+  "symptoms": {
+    "persistent_cough": false,
+    "weight_loss": false,
+    "blood_in_stool": false,
+    "lump": false,
+    "fatigue": false,
+    "loss_of_appetite": false,
+    "difficulty_swallowing": false,
+    "voice_change": false,
+    "skin_changes": false,
+    "non_healing_ulcer": false,
+    "abnormal_bleeding": false,
+    "other": []
+  },
+
+  "additional_information": {
+    "occupation": "",
+    "chemical_exposure": false,
+    "radiation_exposure": false,
+    "air_pollution_exposure": false,
+    "diet": "",
+    "sleep_hours": null,
+    "stress_level": ""
+  }
+}
