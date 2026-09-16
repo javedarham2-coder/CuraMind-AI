@@ -1,5 +1,5 @@
 // Base URL of the FastAPI backend
-const BASE_URL = import.meta.env.VITE_API_URL;
+const BASE_URL = import.meta.env.VITE_API_URL || "https://curamind-ai-mx76.onrender.com";
 
 // Generic API request function
 export async function apiRequest<T>(
